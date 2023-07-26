@@ -1,7 +1,7 @@
 import Tutor from '../models/Tutor';
 import { TutorInterface } from '../models/Tutor';
 
-export default class TutorRepository {
+class TutorRepository {
   async findAll() {
     const tutors = await Tutor.find().populate({ path: 'pets' });
     return tutors;
@@ -28,3 +28,5 @@ export default class TutorRepository {
     return await tutor.save();
   }
 }
+
+export default new TutorRepository();
