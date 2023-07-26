@@ -3,13 +3,18 @@ import TutorRepository from '../repositories/tutor.repository';
 import { TutorInterface } from '../models/Tutor';
 
 class TutorService {
+  private async checkDuplicateEmail(email: string): Promise<boolean> {
+    const existingTutor = await AuthRepository.findByEmail(email);
+    return existingTutor !== null;
+  }
+
   async getAllTutors() {
     const tutors = await TutorRepository.findAll();
     return tutors;
   }
 
   async createTutor(tutorData: TutorInterface) {
-    // await this.checkDuplicateEmail(tutorData.email);
+    await this.checkDuplicateEmail(tutorData.email);
 
     const newTutor = await TutorRepository.create(tutorData);
     const tutorShow = await TutorRepository.findById(newTutor._id);
@@ -22,7 +27,7 @@ class TutorService {
       throw new CustomAPIError.NotFoundError('Tutor not found');
     }
 
-    // await this.checkDuplicateEmail(tutorData.email);
+    await this.checkDuplicateEmail(tutorData.email);
 
     const updateTutor = await TutorRepository.update(tutorData, tutorId);
     if (updateTutor) {
