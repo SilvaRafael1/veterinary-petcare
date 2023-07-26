@@ -1,22 +1,17 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
 
-const app = express()
+const app = express();
 
 //security
-app.use(cors())
-
-// Swagger
-
+app.use(cors());
 
 // JSON
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
-
 //Midleware
 
-
-export default app
+export default app;

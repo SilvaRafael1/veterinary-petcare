@@ -7,5 +7,5 @@ export default {
   CustomAPIError,
   NotFoundError,
   BadRequestError,
-  UnauthenticatedError
+  UnauthenticatedError,
 };
