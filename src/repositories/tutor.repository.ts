@@ -3,7 +3,7 @@ import { TutorInterface } from '../models/Tutor';
 
 class TutorRepository {
   async findAll() {
-    const tutors = await Tutor.find().populate({ path: 'pets' });
+    const tutors = await Tutor.find({}, { password: 0 }).populate({ path: 'pets' });
     return tutors;
   }
   async findById(tutorId: string) {
