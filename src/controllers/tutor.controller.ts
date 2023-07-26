@@ -15,6 +15,14 @@ class TutorController {
     const newTutor = await TutorService.createTutor(tutorData);
     res.status(StatusCodes.CREATED).json(newTutor);
   }
+  async updateTutor(req: Request, res: Response) {
+    // validateTutorDataUpdate(tutorData)
+
+    const { tutorId } = req.params;
+    const tutorData = req.body;
+    const updateTutor = await TutorService.updateTutor(tutorData, tutorId);
+    res.status(StatusCodes.OK).json(updateTutor);
+  }
 }
 
 export default new TutorController();
