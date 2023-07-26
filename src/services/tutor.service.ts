@@ -12,14 +12,7 @@ class TutorService {
     // await this.checkDuplicateEmail(tutorData.email);
 
     const newTutor = await TutorRepository.create(tutorData);
-    const tutorShow = {
-      name: newTutor.name,
-      phone: newTutor.phone,
-      email: newTutor.email,
-      date_of_birth: newTutor.date_of_birth,
-      zip_code: newTutor.zip_code,
-    };
-
+    const tutorShow = await TutorRepository.findById(newTutor._id);
     return tutorShow;
   }
 
@@ -33,13 +26,7 @@ class TutorService {
 
     const updateTutor = await TutorRepository.update(tutorData, tutorId);
     if (updateTutor) {
-      const tutorShow = {
-        name: updateTutor.name,
-        phone: updateTutor.phone,
-        email: updateTutor.email,
-        date_of_birth: updateTutor.date_of_birth,
-        zip_code: updateTutor.zip_code,
-      };
+      const tutorShow = await TutorRepository.findById(tutorId);
       return tutorShow;
     }
     throw new CustomAPIError.BadRequestError('Tutor not updated');
