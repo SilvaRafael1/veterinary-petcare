@@ -23,6 +23,11 @@ class TutorController {
     const updateTutor = await TutorService.updateTutor(tutorData, tutorId);
     res.status(StatusCodes.OK).json(updateTutor);
   }
+  async deleteTutor(req: Request, res: Response) {
+    const tutorId = req.params.tutorId;
+    await TutorService.deleteTutor(tutorId);
+    res.sendStatus(StatusCodes.NO_CONTENT);
+  }
 }
 
 export default new TutorController();

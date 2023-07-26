@@ -7,7 +7,7 @@ class TutorRepository {
     return tutors;
   }
   async findById(tutorId: string) {
-    const tutor = await Tutor.findById(tutorId);
+    const tutor = await Tutor.findById(tutorId, { password: 0 }).populate({ path: 'pets' });
     return tutor;
   }
   async update(tutorData: TutorInterface, tutorId: string) {

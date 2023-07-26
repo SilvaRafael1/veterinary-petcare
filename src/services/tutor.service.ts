@@ -31,6 +31,21 @@ class TutorService {
     }
     throw new CustomAPIError.BadRequestError('Tutor not updated');
   }
+
+  async deleteTutor(tutorId: string) {
+    const existingTutor = await TutorRepository.findById(tutorId);
+
+    if (!existingTutor) {
+      throw new CustomAPIError.NotFoundError('Tutor not found');
+    }
+    const associatedPets = await PetRepository.findByTutorId(tutorId);
+
+    if (associatedPets.length > 0) {
+      throw new CustomAPIError.BadRequestError('Tutor has associated pets and cannot be deleted');
+    }
+
+    await TutorRepository.deleteOne(tutorId);
+  }
 }
 
 export default new TutorService();
