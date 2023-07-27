@@ -23,6 +23,10 @@ class PetRepository {
     });
     return updatedPet;
   }
+  async findByTutorId(tutorId: string) {
+    const pets = await Pet.find({ tutor: tutorId });
+    return pets;
+  }
 }
 
 export default new PetRepository();

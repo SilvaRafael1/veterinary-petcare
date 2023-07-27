@@ -1,6 +1,8 @@
 import CustomAPIError from '../errors';
 import TutorRepository from '../repositories/tutor.repository';
 import { TutorInterface } from '../models/Tutor';
+import AuthRepository from '../repositories/auth.repository';
+import PetRepository from '../repositories/pet.repository';
 
 class TutorService {
   private async checkDuplicateEmail(email: string): Promise<boolean> {
