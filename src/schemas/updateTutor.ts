@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const tutorSchema = Joi.object({
+const updateTutorSchema = Joi.object({
   body: Joi.object({
     name: Joi.string().alphanum().max(50).min(4),
     password: Joi.string()
@@ -13,4 +13,4 @@ const tutorSchema = Joi.object({
   }),
 });
 
-export { tutorSchema };
+export { updateTutorSchema };

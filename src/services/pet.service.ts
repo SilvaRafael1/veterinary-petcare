@@ -3,7 +3,6 @@ import PetRepository from '../repositories/pet.repository';
 import TutorRepository from '../repositories/tutor.repository';
 import Pet from '../models/Pet';
 import { PetInterface } from '../models/Pet';
-// import { validatePetDataCreate, validatePetDataUpdate } from '../utils/petRequiredFields';
 class PetService {
   private async checkDuplicateName(tutorId: string, name: string) {
     const existingPet = await PetRepository.findByName(tutorId, name);
@@ -13,7 +12,6 @@ class PetService {
     }
   }
   async createPet(tutorId: string, petData: PetInterface) {
-    // validatePetDataCreate(petData);
     const tutor = await TutorRepository.findById(tutorId);
 
     if (!tutor) {
@@ -48,7 +46,6 @@ class PetService {
   }
 
   async updatePet(petData: PetInterface, petId: string, tutorId: string) {
-    // validatePetDataUpdate(petData);
     const existingTutor = await TutorRepository.findById(tutorId);
 
     if (!existingTutor) {

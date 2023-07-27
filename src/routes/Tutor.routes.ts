@@ -2,14 +2,15 @@ import express from 'express';
 import tutorController from '../controllers/tutor.controller';
 import authenticateUser from '../middleware/authentication';
 import validator from '../middleware/validator';
-import { tutorSchema } from '../schemas/tutorCreate';
+import { createTutorSchema } from '../schemas/createTutor';
+import { updateTutorSchema } from '../schemas/updateTutor';
 const router = express.Router();
 
 router.get('/tutors', authenticateUser, tutorController.getAllTutors);
-router.post('/tutor', validator(tutorSchema.required()), tutorController.createTutor);
+router.post('/tutor', validator(createTutorSchema), tutorController.createTutor);
 router.put(
   '/tutor/:tutorId',
-  validator(tutorSchema),
+  validator(updateTutorSchema),
   authenticateUser,
   tutorController.updateTutor,
 );
