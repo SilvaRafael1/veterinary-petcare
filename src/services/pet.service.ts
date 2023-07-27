@@ -46,6 +46,35 @@ class PetService {
 
     await PetRepository.deleteOne(tutorId, petId);
   }
+
+  async updatePet(petData: PetInterface, petId: string, tutorId: string) {
+    // validatePetDataUpdate(petData);
+    const existingTutor = await TutorRepository.findById(tutorId);
+
+    if (!existingTutor) {
+      throw new CustomAPIError.NotFoundError('Tutor not found');
+    }
+
+    const existingPet = await PetRepository.findById(tutorId, petId);
+
+    if (!existingPet) {
+      throw new CustomAPIError.BadRequestError('Pet not found');
+    }
+
+    const updatePet = await PetRepository.update(petData, petId);
+
+    if (updatePet) {
+      const tutorShow = {
+        name: updatePet.name,
+        species: updatePet.species,
+        carry: updatePet.carry,
+        weight: updatePet.weight,
+        date_of_birth: updatePet.date_of_birth,
+      };
+      return tutorShow;
+    }
+    throw new CustomAPIError.BadRequestError('Pet not updated');
+  }
 }
 
 export default new PetService();
