@@ -7,7 +7,12 @@ const router = express.Router();
 
 router.get('/tutors', authenticateUser, tutorController.getAllTutors);
 router.post('/tutor', validator(tutorSchema.required()), tutorController.createTutor);
-router.put('/tutor/:tutorId', authenticateUser, tutorController.updateTutor);
+router.put(
+  '/tutor/:tutorId',
+  validator(tutorSchema),
+  authenticateUser,
+  tutorController.updateTutor,
+);
 router.delete('/tutor/:tutorId', authenticateUser, tutorController.deleteTutor);
 
 export default router;
