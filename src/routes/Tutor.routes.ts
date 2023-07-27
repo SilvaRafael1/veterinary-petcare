@@ -1,11 +1,19 @@
 import express from 'express';
-import TutorController from '../controllers/tutor.controller';
-
+import tutorController from '../controllers/tutor.controller';
+import authenticateUser from '../middleware/authentication';
+import validator from '../middleware/validator';
+import { createTutorSchema } from '../schemas/Tutor/createTutor';
+import { updateTutorSchema } from '../schemas/Tutor/updateTutor';
 const router = express.Router();
 
-router.get('/tutors', TutorController.getAllTutors);
-router.post('/tutor', TutorController.createTutor);
-router.put('/tutor/:tutorId', TutorController.updateTutor);
-router.delete('/tutor/:tutorId', TutorController.deleteTutor);
+router.get('/tutors', authenticateUser, tutorController.getAllTutors);
+router.post('/tutor', validator(createTutorSchema), tutorController.createTutor);
+router.put(
+  '/tutor/:tutorId',
+  validator(updateTutorSchema),
+  authenticateUser,
+  tutorController.updateTutor,
+);
+router.delete('/tutor/:tutorId', authenticateUser, tutorController.deleteTutor);
 
 export default router;

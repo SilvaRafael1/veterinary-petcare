@@ -19,8 +19,7 @@ class TutorService {
     await this.checkDuplicateEmail(tutorData.email);
 
     const newTutor = await TutorRepository.create(tutorData);
-    const tutorShow = await TutorRepository.findById(newTutor._id);
-    return tutorShow;
+    return newTutor;
   }
 
   async updateTutor(tutorData: TutorInterface, tutorId: string) {
