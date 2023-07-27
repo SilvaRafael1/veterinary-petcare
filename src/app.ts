@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import TutorRoute from './routes/Tutor.routes';
-import PetRouter from './routes/Pet.routes';
-import AuthRouter from './routes/Auth.routes';
+import tutorRouter from './routes/Tutor.routes';
+import petRouter from './routes/Pet.routes';
+import authRouter from './routes/Auth.routes';
 import errorHandlerMiddleware from './middleware/error-handler';
 import notFound from './middleware/not-found';
 
@@ -16,9 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use(TutorRoute);
-app.use('/pet', PetRouter);
-app.use(AuthRouter);
+app.use('/', tutorRouter);
+app.use('/auth', authRouter);
+app.use('/pet', petRouter);
 
 //Midleware
 app.use(errorHandlerMiddleware);
