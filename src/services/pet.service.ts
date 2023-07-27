@@ -5,6 +5,13 @@ import Pet from '../models/Pet';
 import { PetInterface } from '../models/Pet';
 // import { validatePetDataCreate, validatePetDataUpdate } from '../utils/petRequiredFields';
 class PetService {
+  private async checkDuplicateName(tutorId: string, name: string) {
+    const existingPet = await PetRepository.findByName(tutorId, name);
+
+    if (existingPet) {
+      throw new CustomAPIError.BadRequestError('Pet already registered');
+    }
+  }
   async createPet(tutorId: string, petData: PetInterface) {
     // validatePetDataCreate(petData);
     const tutor = await TutorRepository.findById(tutorId);
@@ -24,12 +31,20 @@ class PetService {
     return pet;
   }
 
-  private async checkDuplicateName(tutorId: string, name: string) {
-    const existingPet = await PetRepository.findByName(tutorId, name);
+  async deletePet(tutorId: string, petId: string) {
+    const existingTutor = await TutorRepository.findById(tutorId);
 
-    if (existingPet) {
-      throw new CustomAPIError.BadRequestError('Pet already registered');
+    if (!existingTutor) {
+      throw new CustomAPIError.NotFoundError('Tutor not found');
     }
+
+    const existingPet = await PetRepository.findById(tutorId, petId);
+
+    if (!existingPet) {
+      throw new CustomAPIError.BadRequestError('Pet not found');
+    }
+
+    await PetRepository.deleteOne(tutorId, petId);
   }
 }
 

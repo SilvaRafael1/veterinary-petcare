@@ -10,6 +10,13 @@ class PetController {
     const pet = await PetService.createPet(tutorId, petData);
     res.status(StatusCodes.CREATED).json(pet);
   }
+
+  async deletePet(req: Request, res: Response) {
+    const tutorId = req.params.tutorId;
+    const petId = req.params.petId;
+    await PetService.deletePet(tutorId, petId);
+    res.sendStatus(StatusCodes.OK);
+  }
 }
 
 export default new PetController();
