@@ -2,8 +2,8 @@ import express from 'express';
 import tutorController from '../controllers/tutor.controller';
 import authenticateUser from '../middleware/authentication';
 import validator from '../middleware/validator';
-import { createTutorSchema } from '../schemas/createTutor';
-import { updateTutorSchema } from '../schemas/updateTutor';
+import { createTutorSchema } from '../schemas/Tutor/createTutor';
+import { updateTutorSchema } from '../schemas/Tutor/updateTutor';
 const router = express.Router();
 
 router.get('/tutors', authenticateUser, tutorController.getAllTutors);
