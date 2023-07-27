@@ -6,6 +6,11 @@ export default (schema: Schema) => (req: Request, res: Response, next: NextFunct
   const { error } = schema.validate(req, {
     abortEarly: false,
     stripUnknown: true,
+    errors: {
+      wrap: {
+        label: ' ',
+      },
+    },
   });
 
   if (error) {
