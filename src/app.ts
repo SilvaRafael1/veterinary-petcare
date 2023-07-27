@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import TutorRoute from './routes/Tutor.routes';
 import PetRouter from './routes/Pet.routes';
+import AuthRouter from './routes/Auth.routes';
 import errorHandlerMiddleware from './middleware/error-handler';
 import notFound from './middleware/not-found';
 
@@ -15,8 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/', TutorRoute);
+app.use(TutorRoute);
 app.use('/pet', PetRouter);
+app.use(AuthRouter);
 
 //Midleware
 app.use(errorHandlerMiddleware);
