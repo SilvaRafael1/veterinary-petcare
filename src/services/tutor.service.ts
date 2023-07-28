@@ -6,9 +6,11 @@ import PetRepository from '../repositories/pet.repository';
 import { formatTutorToShow } from '../utils/showTutor';
 
 class TutorService {
-  private async checkDuplicateEmail(email: string): Promise<boolean> {
+  private async checkDuplicateEmail(email: string): Promise<void> {
     const existingTutor = await AuthRepository.findByEmail(email);
-    return existingTutor !== null;
+    if (existingTutor) {
+      throw new CustomAPIError.BadRequestError('tutor already registered');
+    }
   }
 
   async getAllTutors() {

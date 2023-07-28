@@ -10,7 +10,9 @@
     "lint": "eslint ./src  --ext .ts",
     "lint:fix": "eslint ./src  --ext .ts --fix",
     "style:check": "prettier --check \"src/**/*.ts\" ",
-    "style:fix": "prettier --write \"src/**/*.ts\" "
+    "style:fix": "prettier --write \"src/**/*.ts\" ",
+    "test:functional": "jest ./test --forceExit --runInBand",
+    "test:unit": "jest"
   },
   "keywords": [],
   "author": "Jean Delai, Rafael da Silva, Tiago Rafael",
