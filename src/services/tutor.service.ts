@@ -3,6 +3,7 @@ import TutorRepository from '../repositories/tutor.repository';
 import { TutorInterface } from '../models/Tutor';
 import AuthRepository from '../repositories/auth.repository';
 import PetRepository from '../repositories/pet.repository';
+import { formatTutorToShow } from '../utils/showTutor';
 
 class TutorService {
   private async checkDuplicateEmail(email: string): Promise<boolean> {
@@ -19,7 +20,10 @@ class TutorService {
     await this.checkDuplicateEmail(tutorData.email);
 
     const newTutor = await TutorRepository.create(tutorData);
-    return newTutor;
+
+    const tutorShow = formatTutorToShow(newTutor);
+
+    return tutorShow;
   }
 
   async updateTutor(tutorData: TutorInterface, tutorId: string) {
@@ -32,7 +36,7 @@ class TutorService {
 
     const updateTutor = await TutorRepository.update(tutorData, tutorId);
     if (updateTutor) {
-      const tutorShow = await TutorRepository.findById(tutorId);
+      const tutorShow = formatTutorToShow(updateTutor);
       return tutorShow;
     }
     throw new CustomAPIError.BadRequestError('Tutor not updated');

@@ -3,6 +3,7 @@ import PetRepository from '../repositories/pet.repository';
 import TutorRepository from '../repositories/tutor.repository';
 import Pet from '../models/Pet';
 import { PetInterface } from '../models/Pet';
+import { formatPetToShow } from '../utils/showPet';
 class PetService {
   private async checkDuplicateName(tutorId: string, name: string) {
     const existingPet = await PetRepository.findByName(tutorId, name);
@@ -20,13 +21,13 @@ class PetService {
 
     await this.checkDuplicateName(tutorId, petData.name);
 
-    const pet = new Pet({ ...petData, tutor: tutorId });
+    const newPet = new Pet({ ...petData, tutor: tutorId });
 
-    const createdPet = await PetRepository.create(pet);
+    const createdPet = await PetRepository.create(newPet);
     tutor.pets.push(createdPet._id);
     await TutorRepository.save(tutor);
-
-    return pet;
+    const petShow = formatPetToShow(createdPet);
+    return petShow;
   }
 
   async deletePet(tutorId: string, petId: string) {
@@ -61,15 +62,10 @@ class PetService {
     const updatePet = await PetRepository.update(petData, petId);
 
     if (updatePet) {
-      const tutorShow = {
-        name: updatePet.name,
-        species: updatePet.species,
-        carry: updatePet.carry,
-        weight: updatePet.weight,
-        date_of_birth: updatePet.date_of_birth,
-      };
-      return tutorShow;
+      const petShow = formatPetToShow(updatePet);
+      return petShow;
     }
+
     throw new CustomAPIError.BadRequestError('Pet not updated');
   }
 }
