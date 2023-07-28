@@ -10,7 +10,6 @@ export interface TutorInterface extends Document {
   date_of_birth?: string;
   zip_code?: string;
   pets: mongoose.Types.ObjectId[];
-  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const TutorSchema: Schema<TutorInterface> = new Schema({
@@ -85,8 +84,4 @@ TutorSchema.methods.createJWT = function () {
   });
 };
 
-TutorSchema.methods.comparePassword = async function (candidatePassword: string) {
-  const isMatch = await bcrypt.compare(candidatePassword, this.password);
-  return isMatch;
-};
 export default mongoose.model<TutorInterface>('Tutor', TutorSchema);
