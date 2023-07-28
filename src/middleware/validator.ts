@@ -14,7 +14,7 @@ export default (schema: Schema) => (req: Request, res: Response, next: NextFunct
   });
 
   if (error) {
-    throw new CustomAPIError.NotFoundError(`${error}`);
+    throw new CustomAPIError.BadRequestError(`${error}`);
   } else {
     next();
   }
