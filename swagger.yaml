@@ -1,0 +1,353 @@
+openapi: 3.0.0
+info:
+  title: Pets-Veterinary
+  contact: {}
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+    variables: {}
+paths:
+  /auth:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/LoginRequest'
+                - example:
+                    email: jean12@outlook.com
+                    password: jean123
+            example:
+              email: jean12@outlook.com
+              password: jean123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /tutors:
+    get:
+      tags:
+        - Tutors
+      summary: Retrieves all tutors
+      description: Retrieves all tutors
+      operationId: Retrievesalltutors
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tutor:
+    post:
+      tags:
+        - Tutors
+      summary: Create a new tutor
+      description: Create a new tutor
+      operationId: CreateNewtutor
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateNewTutor'
+                - example:
+                    name: 'jean delai'
+                    password: jean123
+                    phone: '54994422'
+                    email: jean12@outlook.com
+                    date_of_birth: 2000-01-12
+                    zip_code: '98726000'
+            example:
+              name: 'jean delai'
+              password: jean123
+              phone: '54994422'
+              email: jean12@outlook.com
+              date_of_birth: 2000-01-12
+              zip_code: '98726000'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /tutor/{tutorId}:
+    parameters:
+      - in: path
+        name: tutorId
+        schema:
+          type: string
+        required: true
+        description: The tutor ID
+    put:
+      tags:
+        - Tutors
+      summary: Change tutor information
+      description: Change tutor information
+      operationId: UpdateTutor
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateTutor'
+                - example:
+                    phone: '143443'
+            example:
+              phone: '143443'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Tutors
+      summary: Delete a tutor
+      description: Delete a tutor
+      operationId: Deletesatutor
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /pet/{tutorId}:
+    parameters:
+      - in: path
+        name: tutorId
+        schema:
+          type: string
+        required: true
+        description: The tutor ID
+    post:
+      tags:
+        - Pets
+      summary: Creates a pet and adds it to a tutor
+      description: Creates a pet and adds it to a tutor
+      operationId: CreatePet
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreatePet'
+                - example:
+                    name: Bily
+                    species: Pintcher
+                    carry: 'p'
+                    weight: 14
+                    date_of_birth: '2021-9-28'
+            example:
+              name: Bily
+              species: Pintcher
+              carry: 'p'
+              weight: 14
+              date_of_birth: '2021-9-28'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /pet/{petId}/tutor/{tutorId}:
+    parameters:
+      - in: path
+        name: petId
+        schema:
+          type: string
+        required: true
+        description: The pet ID
+      - in: path
+        name: tutorId
+        schema:
+          type: string
+        required: true
+        description: The tutor ID
+    delete:
+      tags:
+        - Pets
+      summary: Deletes a pet from a tutor
+      description: Deletes a pet from a tutor
+      operationId: Deletesapetfromatutor
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    put:
+      tags:
+        - Pets
+      summary: Updates a pet from a tutor
+      description: Updates a pet from a tutor
+      operationId: UpdatePet
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreatePet'
+                - example:
+                    species: 'Pitbull'
+                    carry: 'G'
+              example:
+                species: 'Pitbull'
+                carry: 'G'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+
+components:
+  schemas:
+    LoginRequest:
+      title: LoginRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: 12v222l22i@outllok.com
+        password: teste123
+    CreatePet:
+      title: CreatePet
+      required:
+        - name
+        - species
+        - carry
+        - weight
+        - date_of_birth
+      type: object
+      properties:
+        name:
+          type: string
+        species:
+          type: string
+        carry:
+          type: string
+        weight:
+          type: integer
+          format: int32
+        date_of_birth:
+          type: string
+      example:
+        name: felipe
+        species: Pintcher
+        carry: '123'
+        weight: 123
+        date_of_birth: '2021-11-25 10:10'
+    UpdatePet:
+      title: UpdatePet
+      required:
+        - name
+        - species
+        - carry
+        - weight
+        - date_of_birth
+      type: object
+      properties:
+        name:
+          type: string
+        species:
+          type: string
+        carry:
+          type: string
+        weight:
+          type: integer
+          format: int32
+        date_of_birth:
+          type: string
+      example:
+        name: zeus123
+        species: Pintcher
+        carry: p
+        weight: 123
+        date_of_birth: '2021-11-25 10:10'
+    CreateNewTutor:
+      title: CreateNewTutor
+      required:
+        - name
+        - password
+        - phone
+        - email
+        - date_of_birth
+        - zip_code
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        date_of_birth:
+          type: string
+        zip_code:
+          type: string
+      example:
+        name: '34242'
+        password: teste123
+        phone: '1'
+        email: 12v222l22i@outllok.com
+        date_of_birth: '2000-01-12 10:10'
+        zip_code: '98726000'
+    UpdateTutor:
+      title: UpdateTutor
+      required:
+        - phone
+      type: object
+      properties:
+        phone:
+          type: string
+      example:
+        phone: '143443'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+  - name: Tutors
+  - name: Pets
