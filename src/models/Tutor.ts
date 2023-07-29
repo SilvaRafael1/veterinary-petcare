@@ -5,10 +5,10 @@ export interface TutorInterface extends Document {
   id: mongoose.Types.ObjectId;
   name: string;
   password: string;
-  phone?: string;
+  phone: string;
   email: string;
-  date_of_birth?: string;
-  zip_code?: string;
+  date_of_birth: string;
+  zip_code: string;
   pets: mongoose.Types.ObjectId[];
 }
 
