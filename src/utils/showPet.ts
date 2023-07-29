@@ -1,12 +1,17 @@
-import { PetInterface } from '../models/Pet';
-
-const formatPetToShow = (updatePet: PetInterface) => {
+export interface PetInterfaceShow {
+  name: string;
+  species: string;
+  carry: string;
+  weight: number;
+  date_of_birth?: string;
+}
+const formatPetToShow = (pet: PetInterfaceShow) => {
   const petShow = {
-    name: updatePet.name,
-    species: updatePet.species,
-    carry: updatePet.carry,
-    weight: updatePet.weight,
-    date_of_birth: updatePet.date_of_birth,
+    name: pet.name,
+    species: pet.species,
+    carry: pet.carry,
+    weight: pet.weight,
+    date_of_birth: pet.date_of_birth,
   };
   return petShow;
 };

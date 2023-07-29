@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import CustomAPIError from '../errors';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 
-interface CustomRequest extends Request {
+export interface CustomRequest extends Request {
   user: {
     userId?: string;
   };

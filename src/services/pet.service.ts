@@ -65,8 +65,6 @@ class PetService {
       const petShow = formatPetToShow(updatePet);
       return petShow;
     }
-
-    throw new CustomAPIError.BadRequestError('Pet not updated');
   }
 }
 
