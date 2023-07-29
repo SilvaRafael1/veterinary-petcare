@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 
-interface CustomError {
+export interface CustomError {
   statusCode?: number;
   name?: string;
   message?: string;
@@ -12,7 +12,7 @@ interface CustomError {
 }
 
 const errorHandlerMiddleware = (
-  err: CustomError,
+  err: CustomError | undefined,
   req: Request,
   res: Response,
   next: NextFunction,
