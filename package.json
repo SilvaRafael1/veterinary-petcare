@@ -12,7 +12,8 @@
     "style:check": "prettier --check \"src/**/*.ts\" ",
     "style:fix": "prettier --write \"src/**/*.ts\" ",
     "test:functional": "jest ./tests --forceExit --runInBand",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "test:verbose": "jest --verbose"
   },
   "keywords": [],
   "author": "Jean Delai, Rafael da Silva, Tiago Rafael",
