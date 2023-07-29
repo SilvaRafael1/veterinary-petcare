@@ -23,7 +23,7 @@ class PetController {
     const petId = req.params.petId;
     const petData = req.body;
     const updatePet = await PetService.updatePet(petData, petId, tutorId);
-    res.status(StatusCodes.CREATED).json(updatePet);
+    res.status(StatusCodes.OK).json(updatePet);
   }
 }
 
