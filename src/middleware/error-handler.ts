@@ -17,6 +17,9 @@ const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
+  if (!err) {
+    return next();
+  }
   const customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || 'Something is wrong try again',
@@ -40,6 +43,5 @@ const errorHandlerMiddleware = (
   }
 
   return res.status(customError.statusCode).json({ msg: customError.msg });
-  next();
 };
 export default errorHandlerMiddleware;
