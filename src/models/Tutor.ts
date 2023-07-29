@@ -5,11 +5,12 @@ export interface TutorInterface extends Document {
   id: mongoose.Types.ObjectId;
   name: string;
   password: string;
-  phone?: string;
+  phone: string;
   email: string;
-  date_of_birth?: string;
-  zip_code?: string;
+  date_of_birth: string;
+  zip_code: string;
   pets: mongoose.Types.ObjectId[];
+  createJWT(): string;
 }
 
 const TutorSchema: Schema<TutorInterface> = new Schema({
@@ -71,16 +72,12 @@ TutorSchema.pre<TutorInterface>('save', async function (next) {
 
 TutorSchema.methods.createJWT = function () {
   const jwtSecret = process.env.JWT_SECRET || '';
-
-  let secret;
-  if (jwtSecret !== '') {
-    secret = jwtSecret;
-  } else {
-    secret = 'default_secret';
-  }
+  const jwtLifetime = process.env.JWT_LIFETIME || '';
+  const secret = jwtSecret !== '' ? jwtSecret : 'default_secret';
+  const time = jwtLifetime !== '' ? jwtLifetime : '1h';
 
   return jwt.sign({ userId: this.id, name: this.name }, secret, {
-    expiresIn: process.env.JWT_LIFETIME,
+    expiresIn: time,
   });
 };
 

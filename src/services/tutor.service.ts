@@ -41,7 +41,6 @@ class TutorService {
       const tutorShow = formatTutorToShow(updateTutor);
       return tutorShow;
     }
-    throw new CustomAPIError.BadRequestError('Tutor not updated');
   }
 
   async deleteTutor(tutorId: string) {

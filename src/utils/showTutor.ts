@@ -1,6 +1,15 @@
-import { TutorInterface } from '../models/Tutor';
+// import { TutorInterface } from '../models/Tutor';
 
-const formatTutorToShow = (tutor: TutorInterface) => {
+export interface tutorInterfaceShow {
+  name: string;
+  password?: string;
+  phone: string;
+  email: string;
+  date_of_birth: string;
+  zip_code: string;
+}
+
+const formatTutorToShow = (tutor: tutorInterfaceShow) => {
   const tutorShow = {
     name: tutor.name,
     phone: tutor.phone,

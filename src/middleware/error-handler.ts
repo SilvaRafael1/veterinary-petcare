@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 
-interface CustomError {
+export interface CustomError {
   statusCode?: number;
   name?: string;
   message?: string;
@@ -12,11 +12,14 @@ interface CustomError {
 }
 
 const errorHandlerMiddleware = (
-  err: CustomError,
+  err: CustomError | undefined,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
+  if (!err) {
+    return next();
+  }
   const customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || 'Something is wrong try again',
@@ -40,6 +43,5 @@ const errorHandlerMiddleware = (
   }
 
   return res.status(customError.statusCode).json({ msg: customError.msg });
-  next();
 };
 export default errorHandlerMiddleware;
