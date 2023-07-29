@@ -273,5 +273,42 @@ describe('Create Tutor', () => {
       expect(response.statusCode).toEqual(StatusCodes.NOT_FOUND);
       expect(response.body.msg).toEqual(expectResponse);
     });
+
+    it('It should not be possible to delete a tutor with a pet associated with it', async () => {
+      const newTutor = {
+        name: 'jean',
+        password: 'jean123',
+        phone: '559999999',
+        email: 'jeanteste@gmail.com',
+        date_of_birth: '2000-01-12',
+        zip_code: '98726000',
+      };
+
+      await testServer.post('/tutor').send(newTutor);
+      const responseId = await testServer.get('/tutors').set('Authorization', `Bearer ${token}`);
+      const tutorId2 = responseId.body[0]._id;
+
+      const newPet = {
+        name: 'Boby',
+        species: 'Dog',
+        carry: 'p',
+        weight: 12,
+        date_of_birth: '2021-11-25',
+      };
+
+      await testServer
+        .post(`/pet/${tutorId2}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send(newPet);
+
+      const expectResponse = 'Tutor has associated pets and cannot be deleted';
+
+      const response = await testServer
+        .delete(`/tutor/${tutorId2}`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+      expect(response.body.msg).toEqual(expectResponse);
+    });
   });
 });
