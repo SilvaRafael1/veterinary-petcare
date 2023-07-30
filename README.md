@@ -13,7 +13,9 @@ Create new microservice for its veterinary franchise.
 
 ## 📄 Project Description
 <p align="justify">
-Your last customer was very happy with the microservice you made, but now he have a few more additions that he want you to put in this service.
+A client hired Compass to build a new microservice for its veterinary franchise. This microservice will be used by all the clinics they own for internal client and attendances management.
+
+So, you have this new mission, to build the POC foundations of this brand new microservice, so the sales and management team can have the primary technical view of the needs that the client has.
 </p>
 
 :construction: Project Under Construction :construction:
@@ -38,12 +40,40 @@ After downloading the project, you must open it in visual studio code and open t
 
 ## ✅ Techniques and technologies used
 
-- ``Typescript``
-- ``MongoDB``
-- ``Express``
-- ``Insomnia``
-- ``Prettier``
-- ``ESLint``
+- ``Typescript`` vˆ5.1.6
+- ``Mongoose`` v^7.4.1 
+- ``Express`` v^4.18.2
+- ``Prettier`` v^3.0.0
+- ``ESLint`` v^8.45.0
+- ``Swagger`` v^5.0.0
+- ``Joi`` v^17.9.2
+- ``Jest`` v^29.6.2
+
+## Requirements
+
+Before starting, you will need to have Node.js installed on your machine. Additionally, make sure you have a MongoDB Atlas collection set up, and don't forget to create a .env.example file.
+
+## How to initialize
+
+As described in the requirements above, first you need to install the [NodeJS](https://nodejs.org/en/)
+<br/>
+Then you will run the following commands:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/SilvaRafael1/veterinary-petcare.git
+# Access the project folder
+$ cd veterinary-petcare
+# Install the dependencies
+$ npm i
+```
+
+Create a .env file.
+
+```bash
+# Start the application at localhost:3000
+$ npm run dev
+```
 
 ## 👨🏻‍💻 Developers
 
