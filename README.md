@@ -18,15 +18,6 @@ A client hired Compass to build a new microservice for its veterinary franchise.
 So, you have this new mission, to build the POC foundations of this brand new microservice, so the sales and management team can have the primary technical view of the needs that the client has.
 </p>
 
-:construction: Project Under Construction :construction:
-
-## 🆗 Run the project
-After downloading the project, you must open it in visual studio code and open the terminal and type the following commands:
-- npm i - command responsible for installing all project dependencies
-- tsc - to compile TypeScript files into JavaScript
-- npm start - to execute the project
-- open Petcare-insomnia-file with insomnia, and test the APIs
-
 ## :hammer: Project Features
 ### Create a REST API following the requested patterns:
 
