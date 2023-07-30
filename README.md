@@ -42,7 +42,7 @@ So, you have this new mission, to build the POC foundations of this brand new mi
 
 ## Requirements
 
-Before starting, you will need to have Node.js installed on your machine. Additionally, make sure you have a MongoDB Atlas collection set up, and don't forget to create a .env.example file.
+Before starting, you will need to have Node.js installed on your machine. Additionally, make sure you have a MongoDB Atlas collection set up, and don't forget to create a .env.example file, put the url of the database and the secret.
 
 ## How to initialize
 
