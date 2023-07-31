@@ -1,7 +1,7 @@
-import Pet from '../models/Pet';
-import Tutor from '../models/Tutor';
-import tutorService from '../services/tutor.service';
-import petRepository from './pet.repository';
+import Pet from '../../../src/models/Pet';
+import Tutor from '../../../src/models/Tutor';
+import tutorService from '../../../src/services/tutor.service';
+import petRepository from '../../../src/repositories/pet.repository';
 
 let tutor_Id: string;
 let pet_Id: string;

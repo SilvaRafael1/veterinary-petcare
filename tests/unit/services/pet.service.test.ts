@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
-import Pet from '../models/Pet';
-import Tutor from '../models/Tutor';
-import { formatPetToShow } from '../utils/showPet';
-import petService from './pet.service';
-import tutorService from './tutor.service';
-import petRepository from '../repositories/pet.repository';
+import Pet from '../../../src/models/Pet';
+import Tutor from '../../../src/models/Tutor';
+import { formatPetToShow } from '../../../src/utils/showPet';
+import petService from '../../../src/services/pet.service';
+import tutorService from '../../../src/services/tutor.service';
+import petRepository from '../../../src/repositories/pet.repository';
 
 let tutorId: string;
 
