@@ -71,13 +71,11 @@ TutorSchema.pre<TutorInterface>('save', async function (next) {
 });
 
 TutorSchema.methods.createJWT = function () {
-  const jwtSecret = process.env.JWT_SECRET || '';
-  const jwtLifetime = process.env.JWT_LIFETIME || '';
-  const secret = jwtSecret !== '' ? jwtSecret : 'default_secret';
-  const time = jwtLifetime !== '' ? jwtLifetime : '1h';
+  const jwtSecret = process.env.JWT_SECRET || 'default_secret';
+  const jwtLifetime = process.env.JWT_LIFETIME || '1h';
 
-  return jwt.sign({ userId: this.id, name: this.name }, secret, {
-    expiresIn: time,
+  return jwt.sign({ userId: this.id, name: this.name }, jwtSecret, {
+    expiresIn: jwtLifetime,
   });
 };
 

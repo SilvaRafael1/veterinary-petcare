@@ -22,7 +22,7 @@ const authenticateUser: any = async (req: CustomRequest, res: Response, next: Ne
     req.user = { userId: payload.userId };
     next();
   } catch (error) {
-    throw new CustomAPIError.UnauthenticatedError('Invalid Authentication');
+    throw new CustomAPIError.UnauthenticatedError('Token Invalid or expired');
   }
 };
 

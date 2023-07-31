@@ -2,11 +2,8 @@ import Joi from 'joi';
 
 const createTutorSchema = Joi.object({
   body: Joi.object({
-    name: Joi.string().required().alphanum().max(50).min(4),
-    password: Joi.string()
-      .required()
-      .min(6)
-      .pattern(/^[a-zA-Z0-9]{3,30}$/),
+    name: Joi.string().required().max(50).min(4),
+    password: Joi.string().required().min(6),
     phone: Joi.string().required().min(4).max(20),
     email: Joi.string()
       .required()

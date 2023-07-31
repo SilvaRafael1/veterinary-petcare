@@ -38,6 +38,24 @@ describe('errorHandlerMiddleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
+  it('Should return status 400 and an empty string if the error is undefined', () => {
+    const err: CustomError = {
+      name: 'ValidationError',
+    };
+    const req: Partial<Request> = {};
+    const res: Partial<Response> = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    const next: NextFunction = jest.fn();
+
+    errorHandlerMiddleware(err, req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ msg: '' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
   it('should return status 400 and correct message for value duplication errors', () => {
     const err: CustomError = {
       code: 11000,

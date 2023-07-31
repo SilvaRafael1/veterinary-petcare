@@ -30,7 +30,9 @@ paths:
         required: true
       responses:
         '200':
-          description: ''
+          description: Sucess Login
+        '401':
+          description:  Username or password invalid
           headers: {}
       deprecated: false
       security: []
@@ -40,11 +42,13 @@ paths:
         - Tutors
       summary: Retrieves all tutors
       description: Retrieves all tutors
-      operationId: Retrievesalltutors
+      operationId: RetrievesAllTutors
       parameters: []
       responses:
         '200':
-          description: ''
+          description: Sucess
+        '401':
+          description: Invalid Authentication
           headers: {}
       deprecated: false
       security:
@@ -80,8 +84,10 @@ paths:
               zip_code: '98726000'
         required: true
       responses:
-        '200':
-          description: ''
+        '201':
+          description: 'Successfully registered tutor'
+        '400':
+          description: 'Tutor already registered'
           headers: {}
       deprecated: false
       security: []
@@ -114,7 +120,13 @@ paths:
         required: true
       responses:
         '200':
-          description: ''
+          description: Successfully changed tutor
+        '400':
+          description: Validation Body Error
+        '401':
+          description: Invalid Authentication
+        '404':
+          description: Tutor not found
           headers: {}
       deprecated: false
       security:
@@ -124,11 +136,17 @@ paths:
         - Tutors
       summary: Delete a tutor
       description: Delete a tutor
-      operationId: Deletesatutor
+      operationId: DeleteTutor
       parameters: []
       responses:
-        '200':
-          description: ''
+        '204':
+          description: Successfully delete tutor
+        '400':
+          description: Tutor has associated pets and cannot be deleted
+        '401':
+          description: Invalid Authentication
+        '404':
+          description: Tutor not found
           headers: {}
       deprecated: false
       security:
@@ -169,8 +187,14 @@ paths:
               date_of_birth: '2021-9-28'
         required: true
       responses:
-        '200':
-          description: ''
+        '201':
+          description: Successfully create pet
+        '400':
+          description: Validation Body Error
+        '401':
+          description: Invalid Authentication
+        '404':
+          description: Tutor not found
           headers: {}
       deprecated: false
       security:
@@ -194,11 +218,17 @@ paths:
         - Pets
       summary: Deletes a pet from a tutor
       description: Deletes a pet from a tutor
-      operationId: Deletesapetfromatutor
+      operationId: DeletePet
       parameters: []
       responses:
-        '200':
-          description: ''
+        '204':
+          description: Successfully delete a  pet
+        '400':
+          description: Tutor not found
+        '401':
+          description: Invalid Authentication
+        '404':
+          description: Pet not found
           headers: {}
       deprecated: false
       security:
@@ -225,8 +255,14 @@ paths:
                 carry: 'G'
         required: true
       responses:
-        '200':
-          description: ''
+        '201':
+          description: Successfully update pet
+        '400':
+          description: Pet not found
+        '401':
+          description: Invalid Authentication
+        '404':
+          description: Tutor not found
           headers: {}
       deprecated: false
       security:
