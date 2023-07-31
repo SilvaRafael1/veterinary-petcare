@@ -1,7 +1,6 @@
 import CustomAPIError from '../errors';
 import PetRepository from '../repositories/pet.repository';
 import TutorRepository from '../repositories/tutor.repository';
-import Pet from '../models/Pet';
 import { PetInterface } from '../models/Pet';
 import { formatPetToShow } from '../utils/showPet';
 class PetService {
@@ -19,11 +18,10 @@ class PetService {
       throw new CustomAPIError.BadRequestError('Tutor not found');
     }
 
+    petData.tutor = tutor._id;
     await this.checkDuplicateName(tutorId, petData.name);
 
-    const newPet = new Pet({ ...petData, tutor: tutorId });
-
-    const createdPet = await PetRepository.create(newPet);
+    const createdPet = await PetRepository.create(petData);
     tutor.pets.push(createdPet._id);
     await TutorRepository.save(tutor);
     const petShow = formatPetToShow(createdPet);
