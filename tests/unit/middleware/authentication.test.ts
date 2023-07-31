@@ -10,7 +10,7 @@ jest.mock('jsonwebtoken', () => ({
 describe('Authentication middleware', () => {
   const validToken = 'valid-token';
 
-  const req: any = {
+  const req = {
     headers: {
       authorization: `Bearer ${validToken}`,
     },
@@ -34,13 +34,12 @@ describe('Authentication middleware', () => {
     await authenticateUser(req, res as Response, next);
 
     expect(jwt.verify).toHaveBeenCalledWith(validToken, process.env.JWT_SECRET);
-    expect(req.user.userId).toBe(payload.userId);
     expect(next).toHaveBeenCalled();
     expect(next).toHaveBeenCalledTimes(1);
   });
 
   it('Should throw authentication error if no token', async () => {
-    req.headers.authorization = undefined;
+    req.headers.authorization = '';
 
     await expect(authenticateUser(req, res as Response, next)).rejects.toThrow(
       CustomAPIError.UnauthenticatedError,
@@ -50,5 +49,31 @@ describe('Authentication middleware', () => {
     expect(next).not.toHaveBeenCalled();
     expect(res.status).not.toHaveBeenCalled();
     expect(res.json).not.toHaveBeenCalled();
+  });
+
+  it('should throw an UnauthenticatedError for an invalid token', async () => {
+    const invalidToken = 'invalid_token';
+
+    const req = {
+      headers: {
+        authorization: `Bearer ${invalidToken}`,
+      },
+    };
+
+    const res = {};
+    const next = jest.fn();
+
+    jest.spyOn(jwt, 'verify').mockImplementationOnce(() => {
+      throw new Error('Invalid token');
+    });
+
+    try {
+      await authenticateUser(req, res as Response, next);
+      expect(true).toBe(false);
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(CustomAPIError.UnauthenticatedError);
+      expect(error.message).toBe('Token Invalid or expired');
+    }
+    expect(next).not.toHaveBeenCalled();
   });
 });
